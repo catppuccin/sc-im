@@ -36,10 +36,11 @@
 
 ## Usage
 
-1. Clone this repository locally
-2. Open the app's settings
-3. Select `import theme` and browse to where you cloned Catppuccin
-4. Select it
+1. Copy the content of your preferred flavour from [dist](https://github.com/catppuccin/sc-im/tree/main/dist)
+2. Append it to the `scimrc`, usually found at `~/.config/sc-im/scimrc`
+
+> **Note**
+> You should use the same flavour of Catppuccin in your terminal for the best appearance.
 
 ## 💝 Thanks to
 
