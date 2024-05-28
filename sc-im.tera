@@ -1,3 +1,22 @@
+---
+whiskers:
+  version: "2.3.0"
+  matrix:
+    - flavor
+  filename: "dist/{{ flavor.identifier }}"
+---
+
+{%- macro pad(str, len, before=false) -%}
+{%- set base = str | as_str | length -%}
+{% if not before %}{{ str }}{% endif %}{% for i in range(end=len - base) %} {% endfor %}{% if before %}{{ str }}{% endif %}
+{%- endmacro -%}
+
+{%- for _, color in flavor.colors -%}
+{%- set special = [base, red, blue, yellow] -%}
+{%- if color == base %}{% set name = "BLACK" %}{% else %}{% set name = color.identifier | upper %}{% endif -%}
+{%- if special is containing(color) %}{% set command = "REDEFINE_COLOR" %}{% endif -%}
+{{ self::pad(str=command | default(value="DEFINE_COLOR"), len=15) }}{{ self::pad(str='"' ~ name ~ '"', len=12) }}{{ [self::pad(str=color.rgb.r, len=3, before=true), self::pad(str=color.rgb.g, len=3, before=true), self::pad(str=color.rgb.b, len=3, before=true)] | join(sep=" ") }}
+{% endfor %}
 color "type=NORMAL fg=TEXT bg=BLACK"
 color "type=WELCOME fg=MAGENTA bg=BLACK bold=0"
 color "type=HEADINGS fg=TEXT bg=CRUST"
